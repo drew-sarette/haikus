@@ -51,23 +51,22 @@ const wordsRepo = {
       console.log("Failed to get synonyms from WordsAPI");
     }
 
-    if (numSyllables) {
-      this.addToDB(newEntry)
-    }
-
     const newEntry = {
       "word": word,
-      "syllables": numSyllables ?? 1,
+      "syllables": numSyllables ? numSyllables : 1,
       "synonyms": listOfSynonyms,
     };
 
+    if (numSyllables) {
+      this.addToDB(newEntry)
+    }
 
     return newEntry;
   },
 
   addToDB: async function(entry) {
     console.log(`Adding ${entry} to DB`)
-    await db.set(entry.word.toString(), entry);
+    await db.set(entry.word, entry);
   }
 }
 
