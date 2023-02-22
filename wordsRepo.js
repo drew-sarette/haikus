@@ -22,7 +22,7 @@ const wordsRepo = {
 
   checkWordsAPI: async function getWordData(word) {
     console.log(`Checking WordsAPI for ${word}`);
-  
+
     const options = {
       method: 'GET',
       url: `https://wordsapiv1.p.rapidapi.com/words/${word}/syllables`,
@@ -31,31 +31,38 @@ const wordsRepo = {
         'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
       }
     };
-  
+
     let numSyllables = null;
     let listOfSynonyms = [];
-  
+
     try {
       const syllableRes = await axios.request(options);
       numSyllables = syllableRes.data.syllables.count;
     } catch (err) {
-      console.log("Failed to get syllables from WordsAPI", err.msg);
-      numSyllables = 1;
+      console.log("Failed to get syllables from WordsAPI");
     }
-  
+
     options.url = `https://wordsapiv1.p.rapidapi.com/words/${word}/synonyms`;
-  
+
     try {
       const synonymRes = await axios.request(options);
       listOfSynonyms = synonymRes.data.synonyms.filter(w => !(w.includes(" ")));
     } catch (err) {
-      console.log("Failed to get synonyms from WordsAPI", err.msg);
+      console.log("Failed to get synonyms from WordsAPI");
     }
-    return {
+
+    if (numSyllables) {
+      this.addToDB(newEntry)
+    }
+
+    const newEntry = {
       "word": word,
-      "syllables": numSyllables,
+      "syllables": numSyllables ?? 1,
       "synonyms": listOfSynonyms,
     };
+
+
+    return newEntry;
   },
 
   addToDB: async function(entry) {
