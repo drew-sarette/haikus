@@ -16,7 +16,6 @@ const wordsRepo = {
       console.log(key);
       if (key === word) {
         entry = await db.get(key);
-        console.log(entry);
       }
     }
     return entry;
@@ -54,7 +53,6 @@ const wordsRepo = {
 
   addToDB: async function(entry) {
     console.log(`Adding ${entry} to DB`)
-    console.log(entry.word + " " + entry.syllables);
     await db.set(entry.word.toString(), entry);
   }
 }

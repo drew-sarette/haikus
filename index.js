@@ -1,9 +1,11 @@
 const wordsRepo = require('./wordsRepo.js');
 const haikuRepo = require('./haikuRepo.js');
+const cors = require("cors");
 const express = require("express");
 
 const app = express();
 
+app.use(cors());
 app.use(express.static('public'));
 
 
