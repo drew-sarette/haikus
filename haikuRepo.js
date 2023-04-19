@@ -11,5 +11,11 @@ const haikuRepo = {
 
   post: async function (entry) {
    await collection.insertOne(entry);
-  } 
+  },
+  
+  delete: async function (id) {
+    await collection.deleteOne({ _id: ObjectId(id) });
+  }
 }
+
+module.exports = haikuRepo;

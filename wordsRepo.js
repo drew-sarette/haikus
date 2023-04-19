@@ -12,7 +12,7 @@ const wordsRepo = {
     // }
     let entry = null;
     for (let key of keys) {
-      console.log(key);
+      // console.log(key);
       if (key === word) {
         entry = await db.get(key);
       }

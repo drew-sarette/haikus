@@ -6,6 +6,7 @@ const express = require("express");
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/words/:word', async (req, res) => {
@@ -29,13 +30,35 @@ app.get('/words/:word', async (req, res) => {
   }
 });
 
-app.post('/haikus', (req, res) => {
-  haikuRepo.post(req.body);
-  res.status(200).json({
-    "status": 201,
-    "statusText": "Post created",
-    "message": "Haiku added to database",
-  });
-})
+app.post('/entries', async (req, res) => {
+  console.log(req.body);
+  try {
+    const entry = req.body;
+    await haikuRepo.post(entry);
+    res.status(201).json({ message: 'Entry created' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/entries', async (req, res) => {
+  console.log("entries");
+  try {
+    const allEntries = await haikuRepo.getAll();
+    res.json(allEntries);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete('/entries/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    await haikuRepo.delete(id);
+    res.json({ message: 'Entry deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 app.listen(80, console.log(`Server listening on port 80`));

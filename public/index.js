@@ -17,6 +17,7 @@ document.getElementById("hide-synonyms").addEventListener("click", hideSynonyms)
 document.getElementById("close-form").addEventListener("click", closeSubmitForm);
 document.getElementById("done").addEventListener("click", showSubmitForm);
 document.getElementById("clear").addEventListener("click", clearHaiku);
+document.getElementById("submit-haiku").addEventListener("click", submitHaiku);
 
 
 // Basic page functionality ============================================
@@ -192,4 +193,29 @@ async function substituteSynonym(synonym, index) {
   haiku[index] = wordObj;
   updateHaikuDisplay();
   hideSynonyms();
+}
+
+// Submit a Haiku
+async function submitHaiku() {
+  const title = document.getElementById('haiku-title').value;
+  const author = document.getElementById('author').value;
+  const entry = { title, author, haiku };
+  const endpoint = new URL(`https://haikus.drew-sarette.repl.co/entries`);
+  
+  try {
+    const response = await fetch( endpoint , {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(entry)
+    });
+    if (response.ok) {
+      console.log('Entry created');
+    } else {
+      console.log('1 Error creating entry:', response.statusText);
+    }
+  } catch (err) {
+    console.log('2 Error creating entry :', err.message);
+  }
 }
