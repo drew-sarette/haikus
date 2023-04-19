@@ -11,7 +11,5 @@ const haikuRepo = {
 
   post: async function (entry) {
    await collection.insertOne(entry);
-  }
-    
-  
+  } 
 }
