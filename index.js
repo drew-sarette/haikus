@@ -8,7 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.static('public'));
 
-
 app.get('/words/:word', async (req, res) => {
   console.log("Checking in Replit DB");
   const matchInDB = await wordsRepo.checkDB(req.params.word);
@@ -38,7 +37,5 @@ app.post('/haikus', (req, res) => {
     "message": "Haiku added to database",
   });
 })
-
-
 
 app.listen(80, console.log(`Server listening on port 80`));
