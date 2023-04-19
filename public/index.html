@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A tool for writing haikus easily!">
+    <title>Haikus</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="banner">
+            <h1>Haikus</h1>
+            <button id="menu-btn"><img src="images/menu-icon.svg" alt=""></button>
+        </div>
+        <nav class="mobile-menu display-none">
+            <ul class="main-menu">
+                <li class="menu-item"><a href="info.html">info</a></li>
+                <li class="menu-item"><a href="browse.html">browse</a></li>
+                <li class="menu-item"><a href="index.html">home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="haiku-container">
+            <div id="line-1" class="haiku-line">
+                <input id="current-word" type="text" spellcheck="true" placeholder="Type here...">
+            </div>
+            <div id="line-2" class="haiku-line"></div>
+            <div id="line-3" class="haiku-line"></div>
+
+        </div>
+        <div class="button-container">
+            <button id="done" class="main-buttons" type="button">done</button>
+            <button id="clear" class="main-buttons" type="button">clear</button>
+        </div>
+    </main>
+    <div id="synonym-popup" class="display-none modal">
+        <button id="hide-synonyms" class="close-button" type="button">X</button>
+        <div id="synonym-container">
+        </div>
+    </div>
+    <div id="form-popup" class="modal display-none">
+        <button id="close-form" class="close-button" type="button">X</button>
+        <form action="submit">
+            <div class="form-component">
+                <label for="haiku-title">title:</label>
+                <input type="text" id="haiku-title">
+            </div>
+            <div class="form-component">
+                <label for="author">author:</label>
+                <input type="text" id="author">
+            </div>
+            <div class="form-component">
+                <label for="tags">tags:</label>
+                <input type="text" id="tags">
+            </div>
+            <div class="button-container">
+                <button type="button">submit</button>
+                <button type="button">reset</button>
+            </div>
+        </form>
+    </div>
+    <footer>Drew Sarette, 2022</footer>
+</body>
+
+</html>
