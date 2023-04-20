@@ -38,7 +38,7 @@ function showSubmitForm() {
   }
 }
 
-function closeSubmitForm(ev) {
+function closeSubmitForm() {
   document.getElementById("form-popup").classList.add("display-none");
 }
 
@@ -199,7 +199,12 @@ async function substituteSynonym(synonym, index) {
 async function submitHaiku() {
   const title = document.getElementById('haiku-title').value;
   const author = document.getElementById('author').value;
-  const entry = { title, author, haiku };
+  const haikuAs3Strings = {
+    lineOne: convertToString('line-1'),
+    lineTwo: convertToString('line-2'),
+    lineThree: convertToString('line-3')
+  }
+  const entry = { title, author, haikuAs3Strings };
   const endpoint = new URL(`https://haikus.drew-sarette.repl.co/entries`);
   
   try {
@@ -212,10 +217,24 @@ async function submitHaiku() {
     });
     if (response.ok) {
       console.log('Entry created');
+      alert("Your haiku was saved!");
+      title.value = null;
+      author.value = null;
+      closeSubmitForm();
+      clearHaiku();
     } else {
       console.log('1 Error creating entry:', response.statusText);
+      alert("Something went wrong. Your haiku was not saved.");
     }
   } catch (err) {
     console.log('2 Error creating entry :', err.message);
+    alert("Something went wrong. Your haiku was not saved.");
   }
+}
+
+function convertToString(id) {
+  const spans = document.querySelectorAll(`#${id} span`);
+  let string = "";
+  spans.forEach(s => string += s.textContent + " ");
+  return string;
 }

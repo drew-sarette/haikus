@@ -45,9 +45,18 @@ app.get('/entries', async (req, res) => {
   console.log("entries");
   try {
     const allEntries = await haikuRepo.getAll();
-    res.json(allEntries);
+    res.status(200).json({
+      "status": 200,
+      "statusText": "OK",
+      "message": "All haikus",
+      "data": allEntries,
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      "status": 500,
+      "statusText": "Server error",
+      "message": err.message,
+    });
   }
 });
 

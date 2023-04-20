@@ -5,7 +5,7 @@ const collection = db.collection('entries');
 
 const haikuRepo = {
   getAll: async function () {
-    const allEntries = await collection.find();
+    const allEntries = await collection.find().toArray();
     return allEntries;
   },
 
