@@ -1,0 +1,150 @@
+:root {
+    --neutral: #efefdf;
+    --accent: #e53f0c;
+    --accent-2: #25a244;
+    --dark: #222222;
+    --lighter: #333333;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing:  border-box;
+    margin:  0;
+    background-color:  var(--neutral);
+    height: 100%;
+    color:  var(--text-color);
+    font-size: 16px;
+    display: grid;
+    grid-template-areas:
+        "head"
+        "main"
+        "aside"
+        "foot";
+    grid-template-rows: max-content auto max-content 10%;
+}
+
+/* Header Styles */
+header {
+    grid-area: head;
+    color: var(--dark);
+    background: linear-gradient(to right, var(--neutral) 70%, var(--accent) 30%);
+}
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em;
+}
+
+#menu-btn {
+    background-color: inherit;
+    border: none;
+    width: 40px;
+}
+
+.menu-item, .menu-item a {
+    list-style: none;
+    text-decoration: none;
+    line-height: 40px;
+}
+a:link {
+    color: var(--dark);
+}
+a:hover, a:active {
+    font-weight: bold;
+}
+a:visited {
+    color: var(--dark);
+}
+
+/*  Haiku List  */
+main {
+    grid-area: main;
+    padding: 0 1em;
+}
+
+#haiku-list {
+  list-style: none;
+}
+
+.haiku-li {
+  background-color: var(--dark);
+  color: var(--neutral);
+  padding: 1em;
+  border-radius: 10px;
+  font-size: 18px;
+  position: relative;
+}
+
+.date, .author {
+  font-size: 12px;
+}
+
+.delete-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+/* footer */
+footer {
+    grid-area: foot;
+    text-align: center;
+}
+
+/* Buttons */
+.delete-button {
+    width: 30px;
+    height: 30px;
+    font-weight: 900;
+    border: none;
+    border-radius: 50%;
+    color: var(--accent);
+}
+
+/* For larger screens: */
+@media only screen and (min-width: 648px) {
+    body {
+        grid-template-areas:
+            "head y    y"
+            "head main aside"
+            "head modal aside"
+            "head foot x";
+        grid-template-rows: 4em max-content auto 10%;
+        gap: 2em;
+    }
+
+    #menu-btn {
+        display: none;
+    }
+
+    header {
+        grid-area: head;
+        background: none;
+        background: var(--accent);
+        margin-left: 50%;
+    }
+    
+    nav {
+        display: block !important;
+    }
+    
+    nav > ul {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    main {
+        grid-area: main;
+    }
+
+    footer {
+        grid-area: foot;
+    }
+  }

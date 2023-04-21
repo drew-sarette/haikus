@@ -204,7 +204,8 @@ async function submitHaiku() {
     lineTwo: convertToString('line-2'),
     lineThree: convertToString('line-3')
   }
-  const entry = { title, author, haikuAs3Strings };
+  const date = new Date();
+  const entry = { title, author, haikuAs3Strings, date };
   const endpoint = new URL(`https://haikus.drew-sarette.repl.co/entries`);
   
   try {

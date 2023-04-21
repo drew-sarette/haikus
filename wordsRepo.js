@@ -7,9 +7,9 @@ const wordsRepo = {
     console.log(`Checking DB for ${word}`);
     const keys = await db.list();
     // uncomment to empty database
-    // for (let key of keys) {
-    //   db.delete(key).then(() => { });
-    // }
+    for (let key of keys) {
+      db.delete(key).then(() => { });
+    }
     let entry = null;
     for (let key of keys) {
       // console.log(key);

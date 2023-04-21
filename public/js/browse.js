@@ -9,27 +9,36 @@ async function getAllEntries() {
   return result.data;
 }
 
-async function showHaikus(){
+async function showHaikus() {
   let haikus = await getAllEntries()
   const lis = haikus.map(h => makeLi(h));
+  document.getElementById("haiku-list").innerHTML = null;
   document.getElementById("haiku-list").append(...lis);
 }
 
 showHaikus();
 
+function formatDate(date) {
+  date = new Date(date);
+  return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`
+}
 
 function makeLi(haiku) {
   const listItem = document.createElement('li');
   listItem.innerHTML = `
-    <button type="button">x</button>
+    <button type="button" class="delete-button">x</button>
     <h2 class="title">${haiku.title}</h2>
-    <p class="author">By ${haiku.author}</p>
+    <p class="author">by ${haiku.author}</p>
+    <p class="date">on ${formatDate(haiku.date)}</p>
     <p class="line-1">${haiku.haikuAs3Strings.lineOne}</p>
     <p class="line-2">${haiku.haikuAs3Strings.lineTwo}</p>
     <p class="line-3">${haiku.haikuAs3Strings.lineThree}</p>
-    <p class="date">add date later</p>
   `;
-  listItem.querySelector("button").addEventListener("click", async function () {
+  listItem.classList.add("haiku-li");
+  listItem.querySelector("button").addEventListener("click", async function() {
+    if (!confirm(`Would you like to delete ${haiku.title}?`)){
+      return;
+    }
     const endpoint = new URL(`https://haikus.drew-sarette.repl.co/entries/${haiku._id}`);
     const options = {
       method: 'DELETE',
@@ -37,7 +46,14 @@ function makeLi(haiku) {
         'Content-Type': 'application/json'
       }
     }
-    const response = await fetch(endpoint, options)
+    try {
+      const response = await fetch(endpoint, options);
+      document.getElementById("haiku-list").removeChild(listItem);
+    }
+    catch {
+      alert(`Unable to delete ${haiku.title}. Please try again later`);
+    }
+    
   })
   return listItem;
 }
